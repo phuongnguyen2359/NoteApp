@@ -371,8 +371,10 @@
 			baseConfigurationReference = BCA137E15E1AC755F29C8164 /* Pods-NoteApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = ZPEZ4E898R;
 				INFOPLIST_FILE = NoteApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = RMIT.NoteApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -385,8 +387,10 @@
 			baseConfigurationReference = 1CD304585D881FCC1F3FDA1D /* Pods-NoteApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = ZPEZ4E898R;
 				INFOPLIST_FILE = NoteApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = RMIT.NoteApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";

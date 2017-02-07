@@ -10,12 +10,75 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NoteApp/HomeViewController.swift"
-            timestampString = "508059685.931787"
+            timestampString = "508181548.306474"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "tableView(_:commit:forRowAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NoteApp.HomeViewController.tableView (__ObjC.UITableView, commit : __C.UITableViewCellEditingStyle, forRowAt : Foundation.IndexPath) -&gt; ()"
+                  moduleName = "NoteApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Swift%20Project/NoteApp/NoteApp/HomeViewController.swift"
+                  timestampString = "508073582.114667"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "79"
+                  endingLineNumber = "79"
+                  offsetFromSymbolStart = "154">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NoteApp.HomeViewController.tableView (__ObjC.UITableView, commit : __C.UITableViewCellEditingStyle, forRowAt : Foundation.IndexPath) -&gt; ()"
+                  moduleName = "NoteApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Swift%20Project/NoteApp/NoteApp/HomeViewController.swift"
+                  timestampString = "508073582.117696"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "79"
+                  endingLineNumber = "79"
+                  offsetFromSymbolStart = "1078">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NoteApp.HomeViewController.(tableView (__ObjC.UITableView, commit : __C.UITableViewCellEditingStyle, forRowAt : Foundation.IndexPath) -&gt; ()).(closure #1)"
+                  moduleName = "NoteApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Swift%20Project/NoteApp/NoteApp/HomeViewController.swift"
+                  timestampString = "508073582.119198"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "80"
+                  endingLineNumber = "80"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NoteApp/HomeViewController.swift"
+            timestampString = "508181420.287453"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

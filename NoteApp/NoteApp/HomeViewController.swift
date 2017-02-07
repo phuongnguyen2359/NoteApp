@@ -9,14 +9,8 @@
 import UIKit
 import FirebaseDatabase
 
-
-//struct noteStruct {
-//    let title: String!
-//    let content: String!
-//}
-
 class HomeViewController: UIViewController{
-
+    
     @IBOutlet weak var tableView: UITableView!
     var notes = [Notes]()
     
@@ -25,38 +19,48 @@ class HomeViewController: UIViewController{
         tableView.dataSource = self
         tableView.delegate = self
         tableView.allowsSelectionDuringEditing = true
-        let databaseRef = FIRDatabase.database().reference()
-        databaseRef.child("Notes").queryOrderedByKey().observe(.childAdded, with: { (
-            snapshot) in
-            let snapshotValue = snapshot.value  as? NSDictionary
-            let title = snapshotValue?["title"] as? String
-            let content = snapshotValue?["content"] as? String
-            self.notes.insert(Notes(title: title!, content: content!), at: 0)
-            self.tableView.reloadData()
-        })
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        notes.removeAll()
+//        let n = Notes(title: "", content: "", noteIndex: "")
+//        self.notes = n.notesFun()
+        loadTableData()
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "detailSegue") {
             let selectedRow = tableView.indexPathForSelectedRow?.row
             if let des = segue.destination as? DetailViewController {
-                des.nodeTitle = notes[(selectedRow)!].title
-                
+                des.nodeTitle = notes[(selectedRow)!].title // should delete here
                 des.note = notes[selectedRow!]
-                
+            }
+        } else if (segue.identifier == "addSegue"){
+            if let des = segue.destination as? AddViewController{
+                des.id = notes.count
             }
         }
     }
 }
 
 
-// TableView setting
+// Mark: TableView setting
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
+    
+    func loadTableData() {
+        let databaseRef = FIRDatabase.database().reference()
+        databaseRef.child("Notes").queryOrderedByKey().observe(.childAdded, with: { (
+            snapshot) in
+            let snapshotValue = snapshot.value  as? NSDictionary
+            let title = snapshotValue?["title"] as? String
+            let content = snapshotValue?["content"] as? String
+            let noteIndex = snapshotValue?["noteIndex"] as? String
+            self.notes.insert(Notes(title: title!, content: content!, noteIndex: noteIndex!), at: 0)
+            self.notes.sort(by: {$0.noteIndex < $1.noteIndex})
+            self.tableView.reloadData()
+        })
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notes.count
     }
@@ -73,17 +77,21 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
-//        let titleID = self.notes[indexPath.row].title
-//        
-//        FIRDatabase.database().reference().child("Notes").child(titleID!).removeValue { (error, ref) in
-//            if error != nil {
-//                print("falied to delete")
-//                return
-//            }
-//            self.tableView.deleteRows(at: [indexPath], with: .automatic)
-//        }
-//        print(indexPath.row)
+        FIRDatabase.database().reference().child("Notes").queryOrdered(byChild: "noteIndex").queryEqual(toValue: "\(notes[indexPath.row].noteIndex)").observeSingleEvent(of: .value, with: { (Snap) in
+            if let snapDict = Snap.value as? [String: AnyObject] {
+                for each in snapDict {
+                    let noteId = "\(each.key)"
+                    FIRDatabase.database().reference().child("Notes").child("\(noteId)").removeValue { (error, ref) in
+                        if error != nil {
+                            print("falied to delete")
+                            return
+                        }
+                    }
+                    self.notes.remove(at: indexPath.row)
+                    self.tableView.reloadData()
+                }
+            }
+        })
     }
-
 }
 
