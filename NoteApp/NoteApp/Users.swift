@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class Users: NSObject {
     let email: String?
     let password: String?

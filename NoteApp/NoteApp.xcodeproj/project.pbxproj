@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1C954394C5AB32E9B50A3DC4 /* Pods_NoteApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E04D16CAF9CF5D6898D04ED /* Pods_NoteApp.framework */; };
 		2E0B82641E4AF3E70045BEC6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0B82631E4AF3E70045BEC6 /* LoginViewController.swift */; };
-		2E1CE4E81E4AC12D001CC2B9 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1CE4E71E4AC12D001CC2B9 /* HomeViewModel.swift */; };
 		2E2EB2FE1E482AAA0008A3AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2EB2FD1E482AAA0008A3AF /* AppDelegate.swift */; };
 		2E2EB3031E482AAA0008A3AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E2EB3011E482AAA0008A3AF /* Main.storyboard */; };
 		2E2EB3051E482AAA0008A3AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E2EB3041E482AAA0008A3AF /* Assets.xcassets */; };
@@ -28,7 +27,6 @@
 		0E04D16CAF9CF5D6898D04ED /* Pods_NoteApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NoteApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD304585D881FCC1F3FDA1D /* Pods-NoteApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoteApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-NoteApp/Pods-NoteApp.release.xcconfig"; sourceTree = "<group>"; };
 		2E0B82631E4AF3E70045BEC6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		2E1CE4E71E4AC12D001CC2B9 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		2E2EB2FA1E482AAA0008A3AF /* NoteApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NoteApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E2EB2FD1E482AAA0008A3AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E2EB3021E482AAA0008A3AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -96,7 +94,6 @@
 			children = (
 				2E783A5C1E486FB800B10283 /* Notes.swift */,
 				2E783A591E48622B00B10283 /* titleCell.swift */,
-				2E1CE4E71E4AC12D001CC2B9 /* HomeViewModel.swift */,
 				2ECDBDA61E4B1BF8006491C4 /* Users.swift */,
 			);
 			name = Models;
@@ -260,7 +257,6 @@
 				2E4643941E4B2BF800AB344F /* WelcomeViewController.swift in Sources */,
 				2ECDBDA71E4B1BF8006491C4 /* Users.swift in Sources */,
 				2E2EB2FE1E482AAA0008A3AF /* AppDelegate.swift in Sources */,
-				2E1CE4E81E4AC12D001CC2B9 /* HomeViewModel.swift in Sources */,
 				2E2EB3101E48358B0008A3AF /* HomeViewController.swift in Sources */,
 				2E0B82641E4AF3E70045BEC6 /* LoginViewController.swift in Sources */,
 				2E2EB3121E4837C30008A3AF /* AddViewController.swift in Sources */,

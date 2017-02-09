@@ -11,7 +11,6 @@ import FirebaseDatabase
 
 class DetailViewController: UIViewController {
     
-    
     @IBOutlet weak var txtTitle: UITextField!
     @IBOutlet weak var txtContent: UITextView!
     
