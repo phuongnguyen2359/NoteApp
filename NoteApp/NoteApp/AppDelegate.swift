@@ -25,11 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let vc = storyBoard.instantiateViewController(withIdentifier: "HomeNavigationController")
             window?.rootViewController = vc
         }
-//        if FIRAuth.auth()?.currentUser != nil {
-//            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-//            let vc = storyBoard.instantiateViewController(withIdentifier: "HomeNavigationController")
-//            window?.rootViewController = vc
-//        }
         
         FIRApp.configure()
         FIRDatabase.database().persistenceEnabled = true

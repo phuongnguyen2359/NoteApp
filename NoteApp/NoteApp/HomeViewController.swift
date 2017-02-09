@@ -72,7 +72,9 @@ extension HomeViewController {
     @IBAction func logoutDidTouch(_ sender: Any) {
         try! FIRAuth.auth()?.signOut()
         Users.currentUser = nil
-        dismiss(animated: true, completion: nil)
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "WelcomeViewController")
+        UIApplication.shared.keyWindow?.rootViewController = vc
     }
     
     func loadTableData() {
