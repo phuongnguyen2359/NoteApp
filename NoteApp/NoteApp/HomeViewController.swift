@@ -8,6 +8,8 @@
 
 import UIKit
 import FirebaseDatabase
+import MBProgressHUD
+import Firebase
 
 class HomeViewController: UIViewController{
     
@@ -23,8 +25,6 @@ class HomeViewController: UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         notes.removeAll()
-//        let n = Notes(title: "", content: "", noteIndex: "")
-//        self.notes = n.notesFun()
         loadTableData()
     }
     
@@ -47,20 +47,6 @@ class HomeViewController: UIViewController{
 // Mark: TableView setting
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     
-    func loadTableData() {
-        let databaseRef = FIRDatabase.database().reference()
-        databaseRef.child("Notes").queryOrderedByKey().observe(.childAdded, with: { (
-            snapshot) in
-            let snapshotValue = snapshot.value  as? NSDictionary
-            let title = snapshotValue?["title"] as? String
-            let content = snapshotValue?["content"] as? String
-            let noteIndex = snapshotValue?["noteIndex"] as? String
-            self.notes.insert(Notes(title: title!, content: content!, noteIndex: noteIndex!), at: 0)
-            self.notes.sort(by: {$0.noteIndex < $1.noteIndex})
-            self.tableView.reloadData()
-        })
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notes.count
     }
@@ -76,22 +62,52 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        deleteRow(toValue: notes[indexPath.row].noteIndex, indexPath: indexPath.row)
+    }
+}
+
+
+extension HomeViewController {
+    
+    @IBAction func logoutDidTouch(_ sender: Any) {
+        try! FIRAuth.auth()?.signOut()
+        Users.currentUser = nil
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func loadTableData() {
+        let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
+        loadingNotification.label.text = "Loading Notes"
         
-        FIRDatabase.database().reference().child("Notes").queryOrdered(byChild: "noteIndex").queryEqual(toValue: "\(notes[indexPath.row].noteIndex)").observeSingleEvent(of: .value, with: { (Snap) in
+        let databaseRef = FIRDatabase.database().reference()
+        databaseRef.child("Notes").queryOrderedByKey().observe(.childAdded, with: { (
+            snapshot) in
+            let snapshotValue = snapshot.value  as? NSDictionary
+            let title = snapshotValue?["title"] as? String
+            let content = snapshotValue?["content"] as? String
+            let noteIndex = snapshotValue?["noteIndex"] as? String
+            self.notes.insert(Notes(title: title!, content: content!, noteIndex: noteIndex!), at: 0)
+            self.notes.sort(by: {$0.noteIndex < $1.noteIndex})
+            MBProgressHUD.hide(for: self.view, animated: true)
+            self.tableView.reloadData()
+        })
+    }
+    
+    func deleteRow(toValue: String, indexPath: Int) {
+        FIRDatabase.database().reference().child("Notes").queryOrdered(byChild: "noteIndex").queryEqual(toValue: "\(toValue)").observeSingleEvent(of: .value, with: { (Snap) in
             if let snapDict = Snap.value as? [String: AnyObject] {
                 for each in snapDict {
                     let noteId = "\(each.key)"
                     FIRDatabase.database().reference().child("Notes").child("\(noteId)").removeValue { (error, ref) in
                         if error != nil {
-                            print("falied to delete")
+                            print("\(error)")
                             return
                         }
                     }
-                    self.notes.remove(at: indexPath.row)
+                    self.notes.remove(at: indexPath)
                     self.tableView.reloadData()
                 }
             }
         })
     }
 }
-
