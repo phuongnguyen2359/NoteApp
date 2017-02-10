@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 class AddViewController: UIViewController {
     
@@ -56,6 +57,14 @@ extension AddViewController: UITextFieldDelegate{
         titleTextField.text = ""
         titleTextField.textColor = UIColor.black
     }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }
 
 extension AddViewController {
@@ -74,6 +83,7 @@ extension AddViewController {
     
     // Mark: Add note to firebase database
     func addNote(){
+        let currentUsr = Users.accountName(email: (FIRAuth.auth()?.currentUser?.email)!)
         let title = titleTextField.text
         let content = contentTextView.text
         let noteID = "note_\(id)"
@@ -83,7 +93,8 @@ extension AddViewController {
                                           "content": content,
                                           "noteIndex": noteIndex]
             let databaseRef = FIRDatabase.database().reference()
-            databaseRef.child("Notes").child("\(noteID)").setValue(post)
+            databaseRef.child("Users").child("\(currentUsr)").child("Notes").child("\(noteID)").setValue(post)
         }
     }
 }
+

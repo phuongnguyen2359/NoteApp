@@ -31,7 +31,15 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         loginView.isHidden = false
         registerView.isHidden = true
-        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        nameResTextFiled.delegate = self
+        emailResTextField.delegate = self
+        passResTextField.delegate = self
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     @IBAction func segmentLoginRegister(_ sender: UISegmentedControl) {
@@ -110,6 +118,15 @@ extension LoginViewController {
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+}
+
+extension LoginViewController: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }

@@ -23,6 +23,11 @@ class Users: NSObject {
         
     }
     
+   class func accountName(email: String) -> String {
+        let name = email.components(separatedBy: CharacterSet(charactersIn: ("@0123456789"))).first
+        return name!
+    }
+    
     class var currentUser: Users? {
         get {
             if _currentUser == nil {

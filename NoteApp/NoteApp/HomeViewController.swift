@@ -8,7 +8,6 @@
 
 import UIKit
 import FirebaseDatabase
-import MBProgressHUD
 import Firebase
 
 class HomeViewController: UIViewController{
@@ -43,7 +42,6 @@ class HomeViewController: UIViewController{
     }
 }
 
-
 // Mark: TableView setting
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     
@@ -66,7 +64,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     }
 }
 
-
 extension HomeViewController {
     
     @IBAction func logoutDidTouch(_ sender: Any) {
@@ -78,29 +75,27 @@ extension HomeViewController {
     }
     
     func loadTableData() {
-        let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
-        loadingNotification.label.text = "Loading Notes"
-        
+        let currentUsr = Users.accountName(email: (FIRAuth.auth()?.currentUser?.email)!)
         let databaseRef = FIRDatabase.database().reference()
-        databaseRef.child("Notes").queryOrderedByKey().observe(.childAdded, with: { (
-            snapshot) in
+        
+        databaseRef.child("Users").child("\(currentUsr)").child("Notes").queryOrderedByKey().observe(.childAdded, with: { (snapshot) in
             let snapshotValue = snapshot.value  as? NSDictionary
             let title = snapshotValue?["title"] as? String
             let content = snapshotValue?["content"] as? String
             let noteIndex = snapshotValue?["noteIndex"] as? String
             self.notes.insert(Notes(title: title!, content: content!, noteIndex: noteIndex!), at: 0)
             self.notes.sort(by: {$0.noteIndex < $1.noteIndex})
-            MBProgressHUD.hide(for: self.view, animated: true)
             self.tableView.reloadData()
         })
     }
     
     func deleteRow(toValue: String, indexPath: Int) {
-        FIRDatabase.database().reference().child("Notes").queryOrdered(byChild: "noteIndex").queryEqual(toValue: "\(toValue)").observeSingleEvent(of: .value, with: { (Snap) in
+        let currentUsr = Users.accountName(email: (FIRAuth.auth()?.currentUser?.email)!)
+        FIRDatabase.database().reference().child("Users").child("\(currentUsr)").child("Notes").queryOrdered(byChild: "noteIndex").queryEqual(toValue: "\(toValue)").observeSingleEvent(of: .value, with: { (Snap) in
             if let snapDict = Snap.value as? [String: AnyObject] {
                 for each in snapDict {
                     let noteId = "\(each.key)"
-                    FIRDatabase.database().reference().child("Notes").child("\(noteId)").removeValue { (error, ref) in
+                    FIRDatabase.database().reference().child("Users").child("\(currentUsr)").child("Notes").child("\(noteId)").removeValue { (error, ref) in
                         if error != nil {
                             print("\(error)")
                             return

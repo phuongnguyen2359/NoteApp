@@ -22,6 +22,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         txtTitle.text = note.title
         txtContent.text = note.content
+        txtTitle.delegate = self
     }
     
     @IBAction func editDidTouch(_ sender: Any) {
@@ -38,6 +39,16 @@ class DetailViewController: UIViewController {
             databaseRef.child("Notes").child("\(noteID)").updateChildValues(post)
             _ = self.navigationController?.popViewController(animated: true)
         }
+    }
+}
+
+extension DetailViewController: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }
 
